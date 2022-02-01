@@ -9,6 +9,7 @@ body {
 body {
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background-color: black;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -125,4 +126,13 @@ body {
 
 .show-description {
   opacity: 1;
+}
+
+@media screen and (max-height: 550px) {
+  .boxicon {
+    margin-left: 1.2rem;
+  }
+  .first-and-last-trash-fix {
+    margin-left: 1.2rem;
+  }
 }

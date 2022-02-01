@@ -5,6 +5,21 @@ import reportWebVitals from "./reportWebVitals";
 import "boxicons";
 
 const App = () => {
+  const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() => {
+      const media = window.matchMedia(query);
+      if (media.matches !== matches) {
+        setMatches(media.matches);
+      }
+      const listener = () => setMatches(media.matches);
+      window.addEventListener("resize", listener);
+      return () => window.removeEventListener("resize", listener);
+    }, [matches, query]);
+
+    return matches;
+  };
   let menuItems = [
     {
       name: "Eduhance",
@@ -51,6 +66,7 @@ const App = () => {
   const [active, setActive] = useState(1);
   const [animate, setAnimate] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const changeSmall = useMediaQuery("(max-height: 550px)");
   let delay = 1;
   useEffect(() => {
     setAnimate(true);
@@ -59,7 +75,8 @@ const App = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [active]);
+  }, [active, delay]);
+
   return (
     <div className={`sidebar ${expanded && "expanded"}`}>
       {menuItems.map((item, index) => {
@@ -97,7 +114,7 @@ const App = () => {
                       ${!middle && "first-and-last-trash-fix"}
                       ${active === index && "active"}
                       `}
-              size="md"
+              size={changeSmall ? "sm" : "md"}
               name={item.iconName}
               type={item.type}
               color={
